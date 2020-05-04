@@ -1,89 +1,89 @@
 const { createStore } = require("redux");
 
 initialState = {
-  choosenMentees: "Yasin",
-  points: 10,
-  usia: 20,
-  mentees: [],
-  alamat: "purworejo",
-  minumanFavorite: ["teh botol"],
-  makananFavorite: ["indomie"],
-  laguFavorite: ["shes gone"],
-  ciri: { tinggi: "168 cm", berat: "55 kg" },
-  infoLain: { jabatan: "panglima", gaji: 5000000 },
+    choosenMentees: "Yasin",
+    points: 10,
+    usia: 20,
+    mentees: [],
+    alamat: "purworejo",
+    minumanFavorite: ["teh botol"],
+    makananFavorite: ["indomie"],
+    laguFavorite: ["shes gone"],
+    ciri: { tinggi: "168 cm", berat: "55 kg" },
+    infoLain: { jabatan: "panglima", gaji: 5000000 },
 };
 const reducer = (state = initialState, action) => {
-  //   console.log(state);
-  switch (action.type) {
-    case "ADD_POINT": {
-      return {
-        ...state,
-        points: state.points + action.points,
-      };
+    //   console.log(state);
+    switch (action.type) {
+        case "ADD_POINT": {
+            return {
+                ...state,
+                points: state.points + action.points,
+            };
+        }
+        case "ADD_mentee": {
+            return {
+                ...state,
+                mentees: [...state.mentees, action.mentees],
+            };
+        }
+        case "DELETE_mentee": {
+            return {
+                ...state,
+                mentees: state.mentees.filter((mentees) => action.mentees != mentees),
+            };
+        }
+        case "PINDAHAN_BOS": {
+            return {
+                ...state,
+                alamat: action.alamat,
+            };
+        }
+        case "UMUR": {
+            return {
+                ...state,
+                usia: state.usia + action.usia,
+            };
+        }
+        case "MINUMAN": {
+            return {
+                ...state,
+                minumanFavorite: [...state.minumanFavorite, action.minumanFavorite],
+            };
+        }
+        case "MAKAN": {
+            return {
+                ...state,
+                makananFavorite: [...state.makananFavorite, action.makananFavorite],
+            };
+        }
+        case "LAGU": {
+            return {
+                ...state,
+                laguFavorite: [...state.laguFavorite, action.laguFavorite],
+            };
+        }
+        case "GANTI_VALUE": {
+            return {
+                ...state,
+                ciri: {
+                    tinggi: action.tinggi,
+                    berat: action.berat,
+                },
+            };
+        }
+        case "GANTI_NILAI": {
+            return {
+                ...state,
+                infoLain: {
+                    jabatan: action.jabatan,
+                    gaji: action.gaji,
+                },
+            };
+        }
+        default:
+            return state;
     }
-    case "ADD_mentee": {
-      return {
-        ...state,
-        mentees: [...state.mentees, action.mentees],
-      };
-    }
-    case "DELETE_mentee": {
-      return {
-        ...state,
-        mentees: state.mentees.filter((mentees) => action.mentees != mentees),
-      };
-    }
-    case "PINDAHAN_BOS": {
-      return {
-        ...state,
-        alamat: action.alamat,
-      };
-    }
-    case "UMUR": {
-      return {
-        ...state,
-        usia: state.usia + action.usia,
-      };
-    }
-    case "MINUMAN": {
-      return {
-        ...state,
-        minumanFavorite: [...state.minumanFavorite, action.minumanFavorite],
-      };
-    }
-    case "MAKAN": {
-      return {
-        ...state,
-        makananFavorite: [...state.makananFavorite, action.makananFavorite],
-      };
-    }
-    case "LAGU": {
-      return {
-        ...state,
-        laguFavorite: [...state.laguFavorite, action.laguFavorite],
-      };
-    }
-    case "GANTI_VALUE": {
-      return {
-        ...state,
-        ciri: {
-          tinggi: action.tinggi,
-          berat: action.berat,
-        },
-      };
-    }
-    // case "GANTI_KEY": {
-    //   return {
-    //     ...state,
-    //     ciri: {
-    //       tinggi = action.tinggi,
-    //       berat = action.berat,
-    //     },
-    //   };
-    // }
-    default:
-      return state;
-  }
 };
 
 // action created (fs yg menghasilkan objek)
@@ -98,20 +98,20 @@ const deleteMentee = (mentees) => ({ type: "DELETE_mentee", mentees });
 const addUsia = (usia) => ({ type: "UMUR", usia });
 const ubahAlamat = (alamat) => ({ type: "PINDAHAN_BOS", alamat });
 const addMinumFavorite = (minumanFavorite) => ({
-  type: "MINUMAN",
-  minumanFavorite,
+    type: "MINUMAN",
+    minumanFavorite,
 });
 const addMakananFavorite = (makananFavorite) => ({
-  type: "MAKAN",
-  makananFavorite,
+    type: "MAKAN",
+    makananFavorite,
 });
 const addLaguFavorite = (laguFavorite) => ({ type: "LAGU", laguFavorite });
-const addCiri = (tinggi, berat) => ({ type: "GANTI_VALUE", tinggi, berat });
-// const addCiri = (tinggi, berat) => ({ type: "GANTI_KEY", tinggi, berat });
+const changeCiri = (tinggi, berat) => ({ type: "GANTI_VALUE", tinggi, berat });
+const changeInfoLain = (jabatan, gaji) => ({ type: "GANTI_NILAI", jabatan, gaji });
 // create store
 const store = createStore(reducer);
 store.subscribe(() => {
-  console.log(store.getState());
+    console.log(store.getState());
 });
 
 //dispatch
@@ -126,8 +126,6 @@ store.dispatch(ubahAlamat("Malang"));
 store.dispatch(addMinumFavorite("Teh Kotak"));
 store.dispatch(addMakananFavorite("Mie Sedap"));
 store.dispatch(addLaguFavorite("Beautifull in white"));
-store.dispatch(addCiri("170 cm", "58 kg"));
-// store.dispatch(());
-// store.dispatch(());
-// store.dispatch(());
-// store.dispatch(());
+store.dispatch(changeCiri("170 cm", "58 kg"));
+store.dispatch(changeInfoLain("warior", 5500000));
+
