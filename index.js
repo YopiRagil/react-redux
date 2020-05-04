@@ -72,7 +72,15 @@ const reducer = (state = initialState, action) => {
         },
       };
     }
-
+    // case "GANTI_KEY": {
+    //   return {
+    //     ...state,
+    //     ciri: {
+    //       tinggi = action.tinggi,
+    //       berat = action.berat,
+    //     },
+    //   };
+    // }
     default:
       return state;
   }
@@ -99,6 +107,7 @@ const addMakananFavorite = (makananFavorite) => ({
 });
 const addLaguFavorite = (laguFavorite) => ({ type: "LAGU", laguFavorite });
 const addCiri = (tinggi, berat) => ({ type: "GANTI_VALUE", tinggi, berat });
+// const addCiri = (tinggi, berat) => ({ type: "GANTI_KEY", tinggi, berat });
 // create store
 const store = createStore(reducer);
 store.subscribe(() => {
